@@ -1,7 +1,13 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.2</TargetFramework>
   </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ApiC.CrossCutting\ApiC.CrossCutting.csproj" />
+    <ProjectReference Include="..\ApiC.Data\ApiC.Data.csproj" />
+    <ProjectReference Include="..\ApiC.Domain\ApiC.Domain.csproj" />
+  </ItemGroup>
 
 </Project>
