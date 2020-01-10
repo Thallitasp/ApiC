@@ -4,4 +4,14 @@
     <TargetFramework>netcoreapp2.2</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="6.1.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ApiC.Data\ApiC.Data.csproj" />
+    <ProjectReference Include="..\ApiC.Domain\ApiC.Domain.csproj" />
+    <ProjectReference Include="..\ApiC.Service\ApiC.Service.csproj" />
+  </ItemGroup>
+
 </Project>

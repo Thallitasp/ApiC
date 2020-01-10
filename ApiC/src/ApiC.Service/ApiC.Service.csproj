@@ -5,7 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ApiC.CrossCutting\ApiC.CrossCutting.csproj" />
     <ProjectReference Include="..\ApiC.Data\ApiC.Data.csproj" />
     <ProjectReference Include="..\ApiC.Domain\ApiC.Domain.csproj" />
   </ItemGroup>
