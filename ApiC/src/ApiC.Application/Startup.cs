@@ -7,9 +7,11 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Rewrite;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Swashbuckle.AspNetCore.Swagger;
 
 namespace ApiC.Application
 {
@@ -28,12 +30,21 @@ namespace ApiC.Application
             ConfigureService.ConfigureDependenciesService(services);
             ConfigureRepository.ConfigureDependenciesRepository(services);
 
-            services.Configure<CookiePolicyOptions>(options =>
-            {
-                // This lambda determines whether user consent for non-essential cookies is needed for a given request.
-                options.CheckConsentNeeded = context => true;
-                options.MinimumSameSitePolicy = SameSiteMode.None;
-            });
+            services.AddSwaggerGen(c =>
+           {
+               c.SwaggerDoc("v1",
+                   new Info
+                   {
+                       Title = "Api",
+                       Version = "v1",
+                       Description = "Exemplo de API REST criada com o ASP NET Core",
+                       Contact = new Contact
+                       {
+                           Name = "Thallita Pedreira",
+                           Url = "https://github.com/Thallitasp/ApiC"
+                       }
+                   });
+           });
 
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
@@ -50,6 +61,17 @@ namespace ApiC.Application
             {
                 app.UseExceptionHandler("/Home/Error");
             }
+
+            app.UseSwagger();
+            app.UseSwaggerUI(c => {
+                c.RoutePrefix = string.Empty;
+                c.SwaggerEndpoint("/swagger/v1/swagger.json",
+                    "Projeto em AspNetCore 2.2");
+            });
+
+            var option = new RewriteOptions();
+            option.AddRedirect("^$", "swager");
+            app.UseRewriter(option);
 
             app.UseStaticFiles();
             app.UseCookiePolicy();

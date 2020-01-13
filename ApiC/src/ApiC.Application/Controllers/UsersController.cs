@@ -70,9 +70,9 @@ namespace ApiC.Application.Controllers
             {
                 var result = await Service.Post(user);
 
-                if(result != null)
+                if (result != null)
                 {
-                    return Created(new Uri(Url.Link("GetWithId", new {id = result.Id})), result);
+                    return Created(new Uri(Url.Link("GetWithId", new { id = result.Id })), result);
                 }
                 else
                 {
@@ -84,5 +84,51 @@ namespace ApiC.Application.Controllers
                 return StatusCode((int)HttpStatusCode.InternalServerError, e.Message);
             }
         }
+
+        [HttpPut]
+        public async Task<ActionResult> Put([FromBody] UserEntity user)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            try
+            {
+                var result = await Service.Put(user);
+
+                if (result != null)
+                {
+                    return Ok(result);
+                }
+                else
+                {
+                    return BadRequest();
+                }
+            }
+            catch (ArgumentException e)
+            {
+                return StatusCode((int)HttpStatusCode.InternalServerError, e.Message);
+            }
+        }
+
+        [HttpDelete ("{id}")]
+        public async Task<ActionResult> Delete(Guid id)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+
+            }
+            try
+            {
+                return Ok(await Service.Delete(id));
+            }
+            catch (ArgumentException e)
+            {
+                return StatusCode((int)HttpStatusCode.InternalServerError, e.Message);
+            }
+        }
+
     }
 }
