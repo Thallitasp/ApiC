@@ -1,9 +1,7 @@
-﻿using ApiC.Domain.Entities;
+﻿using ApiC.Domain.Dtos;
 using ApiC.Domain.Interfaces.Services.User;
 using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 
@@ -14,20 +12,20 @@ namespace ApiC.Application.Controllers
     public class LoginController : ControllerBase
     {
         [HttpPost]
-        public async Task<object> Login([FromBody] UserEntity userEntity, [FromServices] ILoginService service)
+        public async Task<object> Login([FromBody] LoginDto loginDto, [FromServices] ILoginService service)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
-            if(userEntity == null)
+            if(loginDto == null)
             {
                 return BadRequest();
             }
 
             try
             {
-                var result = await service.FindByLogin(userEntity);
+                var result = await service.FindByLogin(loginDto);
 
                 if(result != null)
                 {

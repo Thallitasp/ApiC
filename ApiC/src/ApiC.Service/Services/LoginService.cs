@@ -1,9 +1,7 @@
-﻿using ApiC.Domain.Entities;
+﻿using ApiC.Domain.Dtos;
+using ApiC.Domain.Entities;
 using ApiC.Domain.Interfaces.Services.User;
 using ApiC.Domain.Repository;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace ApiC.Service.Services
@@ -17,7 +15,7 @@ namespace ApiC.Service.Services
             Repository = repository;
         }
 
-        public async Task<object> FindByLogin(UserEntity user)
+        public async Task<object> FindByLogin(LoginDto user)
         {
             var BaseUser = new UserEntity();
             if (user != null && !string.IsNullOrWhiteSpace(user.Email))
