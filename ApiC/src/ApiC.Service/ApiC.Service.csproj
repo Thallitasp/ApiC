@@ -5,6 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="5.5.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\ApiC.Data\ApiC.Data.csproj" />
     <ProjectReference Include="..\ApiC.Domain\ApiC.Domain.csproj" />
   </ItemGroup>

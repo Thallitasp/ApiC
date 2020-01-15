@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using ApiC.CrossCutting.DependencyInjection;
+using ApiC.Domain.Security;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -11,6 +14,7 @@ using Microsoft.AspNetCore.Rewrite;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
 using Swashbuckle.AspNetCore.Swagger;
 
 namespace ApiC.Application
@@ -30,6 +34,38 @@ namespace ApiC.Application
             ConfigureService.ConfigureDependenciesService(services);
             ConfigureRepository.ConfigureDependenciesRepository(services);
 
+            var signingConfigurations = new SigningConfigurations();
+            services.AddSingleton(signingConfigurations);
+
+            var tokenConfigurations = new TokenConfiguration();
+            new ConfigureFromConfigurationOptions<TokenConfiguration>(
+                Configuration.GetSection("TokenConfigurations"))
+                    .Configure(tokenConfigurations);
+            services.AddSingleton(tokenConfigurations);
+
+            services.AddAuthentication(authOptions =>
+            {
+                authOptions.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                authOptions.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            }).AddJwtBearer(bearerOptions =>
+            {
+                var paramsValidation = bearerOptions.TokenValidationParameters;
+                paramsValidation.IssuerSigningKey = signingConfigurations.Key;
+                paramsValidation.ValidAudience = tokenConfigurations.Audience;
+                paramsValidation.ValidIssuer = tokenConfigurations.Issuer;
+                paramsValidation.ValidateIssuerSigningKey = true;
+                paramsValidation.ValidateLifetime = true;
+                paramsValidation.ClockSkew = TimeSpan.Zero;
+            });
+
+
+            services.AddAuthorization(auth =>
+            {
+                auth.AddPolicy("Bearer", new AuthorizationPolicyBuilder()
+                    .AddAuthenticationSchemes(JwtBearerDefaults.AuthenticationScheme)
+                    .RequireAuthenticatedUser().Build());
+            });
+
             services.AddSwaggerGen(c =>
            {
                c.SwaggerDoc("v1",
@@ -44,6 +80,17 @@ namespace ApiC.Application
                            Url = "https://github.com/Thallitasp/ApiC"
                        }
                    });
+               c.AddSecurityDefinition("Bearer", new ApiKeyScheme {
+                   In = "header",
+                   Description = "Entre com o Token JWT",
+                   Name = "Authorization",
+                   Type = "apiKey"
+               });
+
+               c.AddSecurityRequirement(new Dictionary<string, IEnumerable<string>>
+               {
+                   {"Bearer", Enumerable.Empty<string>()}
+               });
            });
 
 

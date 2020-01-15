@@ -1,5 +1,6 @@
 ﻿using ApiC.Domain.Dtos;
 using ApiC.Domain.Interfaces.Services.User;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Net;
@@ -11,6 +12,7 @@ namespace ApiC.Application.Controllers
     [ApiController]
     public class LoginController : ControllerBase
     {
+        [AllowAnonymous]
         [HttpPost]
         public async Task<object> Login([FromBody] LoginDto loginDto, [FromServices] ILoginService service)
         {
