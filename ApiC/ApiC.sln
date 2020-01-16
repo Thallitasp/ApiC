@@ -3,15 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29613.14
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApiC.Application", "src\ApiC.Application\ApiC.Application.csproj", "{E43C79D9-3FDD-42AA-8654-8E3D1D938C66}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ApiC.Application", "src\ApiC.Application\ApiC.Application.csproj", "{E43C79D9-3FDD-42AA-8654-8E3D1D938C66}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApiC.CrossCutting", "src\ApiC.CrossCutting\ApiC.CrossCutting.csproj", "{3B09DEEE-5DB6-4787-86E4-ED08ECA1E853}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ApiC.CrossCutting", "src\ApiC.CrossCutting\ApiC.CrossCutting.csproj", "{3B09DEEE-5DB6-4787-86E4-ED08ECA1E853}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApiC.Data", "src\ApiC.Data\ApiC.Data.csproj", "{5A244F3F-ECAE-4176-9477-CD3090C416F0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ApiC.Data", "src\ApiC.Data\ApiC.Data.csproj", "{5A244F3F-ECAE-4176-9477-CD3090C416F0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApiC.Domain", "src\ApiC.Domain\ApiC.Domain.csproj", "{91213655-2469-4889-906A-EB0935AEAF7A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ApiC.Domain", "src\ApiC.Domain\ApiC.Domain.csproj", "{91213655-2469-4889-906A-EB0935AEAF7A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApiC.Service", "src\ApiC.Service\ApiC.Service.csproj", "{EA431C45-C8D5-47EA-9948-47954012C9AE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ApiC.Service", "src\ApiC.Service\ApiC.Service.csproj", "{EA431C45-C8D5-47EA-9948-47954012C9AE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
